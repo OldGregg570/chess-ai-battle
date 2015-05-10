@@ -1,9 +1,163 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
+    <link rel="icon" type="image/ico" href="img/favicon.ico">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>py-chess-arena</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- highlight.js    -->
+
+    <link rel="stylesheet" href="css/github.css">
+    <script src="lib/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <style>
+    body {
+        padding-top: 70px;
+        /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    }
+    </style>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
 </head>
+
 <body>
-<h1>Chess AI Battle</h1>
-<p>A platform to create, battle, and gather data about chess AI.</p>
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                </button>
+                <div id="brand-icon"></div>
+                <a class="navbar-brand" href="#">py-chess-arena</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#">API Reference</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container" style="width: 800px;">
+        <div class="row dat-hook">
+            <div class="text-center">
+                <h1>py-chess-arena</h1>
+                <p class="lead">
+                    create, battle, and analyze chess bots
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <h1>About</h1>
+            <p>
+                py-chess-arena is a Python library for creating, battling, and
+                analyzing chess bots. The API makes it easy to make your own
+                bot. You can also test your bots against the
+                included py-chess-arena combatants.
+            </p>
+            </br>
+            <h1>Getting Started</h1>
+
+            <h3>Requirements</h3>
+            <ul>
+                <li>
+                    Python 2.7
+                </li>
+                <li>
+                    python-chess
+                </li>
+            </ul>
+
+            <h4>To clone the git repo:</h4>
+            <p>
+            <pre><code>~/> git clone https://github.com/OldGregg570/chess-ai-battle.git</code></pre>
+            </br>
+            </p>
+
+            <h3>Implementing a Chess AI</h3>
+            <p>
+                Implementing a new AI combatant is simple. An AI must
+                implement the get_move() method in order to compete. This
+                method accepts the current board state.
+                <pre>~/chess-ai-battle/> <code class="python">
+from src.ai.Combatants import Combatant
+import random
+
+class Randy(Combatant):
+def get_move(self, board):
+    # get the list of legal moves from the current board state
+    legal_moves = list(board.legal_moves)
+
+    # return the random legal move
+    return legal_moves[random.randint(0, len(legal_moves) - 1)]</code></pre>
+            </p>
+            <p>
+                   Once a new Combatant has been implemented, it can be used
+                   in a chess battle. The return value for a battle is a tuple with
+                   three values: (stalemates, white_wins, black_wins)
+            </p>
+            <p>
+        <pre>~/chess-ai-battle/> <code class="python">
+import src.Battle
+
+trial_count = 5
+p1, p2 = Randy, Randy
+
+print Battle(trial_count, p1, p2).run()
+
+# example output
+>>> (5, 0, 0)
+
+print Battle(1000, p1, p2).run()
+
+# example output
+>>> (732, 133, 135)</code></pre>
+            </p>
+            <p>
+                As you can see here, Randy tends to stalemate a lot when he plays
+                with himself. In fact, A Randy vs Randy battle can been expected
+                to stalemate around 70% of the time as observed with py-chess-arena
+            </p>
+            </br>
+            </p>
+            <h3>License and Contributions</h4>
+            <p>
+                py-chess-arena is licensed under the GPL3.
+            </p>
+            <h4>Credits: </h4>
+            <p>
+                <ul>
+                    <li>Niklas Fiekas for his <a href="https://github.com/niklasf/python-chess">python-chess</a> library</li>
+                    <li>commons.wikimedia.org for their <a href="commons.wikimedia.org/wiki/Category:PNG_chess_pieces/Standard_transparent">chess piece images</a> library</li>
+                    <li><a href="http://getbootstrap.com/">bootstrap</a> for making pretty pages like this possible for developers like me</li>
+                    <li>the wonderful syntax highlighting library I am using here, <a href="https://highlightjs.org/usage/">highlight.js</a></li>
+                </ul>
+            </p>
+        </div>
+    </div>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
 </body>
+
 </html>
