@@ -1,6 +1,6 @@
 #import pygame
+#from pygame import Rect
 import chess
-from pygame import Rect
 import logging
 
 logging.basicConfig()
