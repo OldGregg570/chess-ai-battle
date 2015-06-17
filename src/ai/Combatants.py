@@ -1,5 +1,10 @@
 import random
 import chess
+import logging
+
+logging.basicConfig()
+log = logging.getLogger('Combatants')
+log.setLevel(logging.getLevelName('INFO'))
 
 NUM_FLIP = [0, 8, 7, 6, 5, 4, 3, 2, 1]
 ALPHA_FLIP = {'a': 'h', 'b': 'g', 'c': 'f', 'd': 'e', 'e': 'd', 'f': 'c', 'g': 'b', 'h': 'a'}
@@ -7,7 +12,7 @@ ALPHA_FLIP = {'a': 'h', 'b': 'g', 'c': 'f', 'd': 'e', 'e': 'd', 'f': 'c', 'g': '
 flip_move_color = lambda move: "{0}{1}{2}{3}".format(move[0], NUM_FLIP[int(move[1])], move[2], NUM_FLIP[int(move[3])])
 
 
-class AI (object):
+class Combatant (object):
     def __init__(self, color):
         """
         AI base class. Defines chess color (black or white)
@@ -19,7 +24,7 @@ class AI (object):
         pass
 
 
-class Randy(AI):
+class Randy(Combatant):
     def get_move(self, board):
         """
         Randy AI

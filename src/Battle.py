@@ -1,24 +1,31 @@
 import time
 from timeit import default_timer as timer
 import chess
-from lib.Lumberjack import Logger
 from Board import Board
+import logging
 
-
+logging.basicConfig()
+log = logging.getLogger('Battle')
+log.setLevel(logging.getLevelName('INFO'))
 
 STATS_STRING = "\n\tStalemates:\t{0}\n\tPlayer 1 wins:\t{1}\n\tPlayer 2 wins:\t{2}\n"
 RESULT_STRING = "\n\tResult: {0}"
 
-log = Logger('Battle')
-
 
 class Battle ():
-    def __init__(self, trial_count, p1, p2, gui=False, sleep_time=0, logg=True):
+    def __init__(self, trial_count, p1, p2, logg=False, gui=True, sleep_time=0):
+        """Start a series of chess games.
+        :param p1: description
+        :param p2: description
+        :type p1: type description
+        :type p2: type description
         """
-        Start a series of chess games.
-        """
-        log.set(logg)
-        log.info("\n\tBattle: {0} vs {1}\n", p1.__name__, p2.__name__)
+        if logg:
+            log.setLevel(logging.getLevelName('INFO'))
+        else:
+            log.setLevel(0)
+
+        log.info("\n\tBattle: {0} vs {1}\n".format(p1.__name__, p2.__name__))
         self.trial_count = trial_count
         self.stalemates = 0
         self.player_one_wins = 0

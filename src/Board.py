@@ -1,21 +1,20 @@
 import pygame
 import chess
 from pygame import Rect
+import logging
 
-from lib.Lumberjack import Logger
-
-
-log = Logger('Board')
-pygame.init()
+logging.basicConfig()
+log = logging.getLogger('Board')
+log.setLevel(logging.getLevelName('INFO'))
 
 # Constants
 SQUARE_COUNT = 8
 SQUARE_SIZE = 40
 DISPLAY_SIZE = (SQUARE_SIZE * SQUARE_COUNT, SQUARE_SIZE * SQUARE_COUNT)
-SPRITE_SIZE = SQUARE_SIZE / 2
-PADDING = SQUARE_SIZE / 4
-BLACK = 40, 40, 60
-WHITE = 225, 225, 245
+SPRITE_SIZE = int(SQUARE_SIZE / 1.5)
+PADDING = int(SQUARE_SIZE / 5.5)
+BLACK = 90, 90, 100
+WHITE = 200, 200, 200
 PLAYER_NAMES = ['p1', 'p2']
 
 IMG_LOAD = lambda asset: pygame.transform.scale(pygame.image.load('./assets/' + asset), (SPRITE_SIZE, SPRITE_SIZE))
@@ -30,8 +29,6 @@ SPRITE_DICT = {
 
 
 class Board(chess.Board):
-    all_pairs = lambda: [(x, y) for x in range(SQUARE_COUNT) for y in range(SQUARE_COUNT)]
-
     def __init__(self, with_gui=False):
         """
         Chess Board class. Wraps GUI and python-chess board API and adds some extra functionality.
@@ -57,7 +54,7 @@ class Board(chess.Board):
         :return:
         """
         self.screen.fill(BLACK)
-        for x, y in Board.all_pairs():
+        for x, y in [(x, y) for x in range(SQUARE_COUNT) for y in range(SQUARE_COUNT)]:
             self._paint_square(x, y)
             self._paint_piece(x, y)
         pygame.display.flip()
