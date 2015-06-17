@@ -45,19 +45,19 @@ class Battle ():
 
         for n in range(self.trial_count):
             start_time = timer()
-            result = self.play_game()
+            result = self._play_game()
 
             self.stalemates += result.startswith('stalemate')
             self.player_one_wins += result.startswith('p1')
             self.player_two_wins += result.startswith('p2')
 
-            self.print_stats(n, str(timer() - start_time))
+            self._print_stats(n, str(timer() - start_time))
 
         self.results = (self.stalemates, self.player_one_wins, self.player_two_wins)
         log.info(RESULT_STRING.format(str(self.results)))
         return self.results
 
-    def play_game(self):
+    def _play_game(self):
         """
         Play a new game of chess. Paints the board and takes move input
         from the players.
@@ -85,7 +85,7 @@ class Battle ():
 
         return ret_val
 
-    def print_stats(self, round_num=None, time_elapsed=None):
+    def _print_stats(self, round_num=None, time_elapsed=None):
         """
         Prints statistics for the round.
         :param round_num: The last completed round
