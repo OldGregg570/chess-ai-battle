@@ -17,15 +17,15 @@ BLACK = 90, 90, 100
 WHITE = 200, 200, 200
 PLAYER_NAMES = ['p1', 'p2']
 
-IMG_LOAD = lambda asset: pygame.transform.scale(pygame.image.load('./assets/' + asset), (SPRITE_SIZE, SPRITE_SIZE))
+#IMG_LOAD = lambda asset: pygame.transform.scale(pygame.image.load('./assets/' + asset), (SPRITE_SIZE, SPRITE_SIZE))
 
-SPRITE_DICT = {
-    'p': IMG_LOAD('black_pawn.png'),    'P': IMG_LOAD('white_pawn.png'),
-    'r': IMG_LOAD('black_castle.png'),  'R': IMG_LOAD('white_castle.png'),
-    'n': IMG_LOAD('black_knight.png'),  'N': IMG_LOAD('white_knight.png'),
-    'b': IMG_LOAD('black_bishop.png'),  'B': IMG_LOAD('white_bishop.png'),
-    'k': IMG_LOAD('black_king.png'),    'K': IMG_LOAD('white_king.png'),
-    'q': IMG_LOAD('black_queen.png'),   'Q': IMG_LOAD('white_queen.png')}
+# SPRITE_DICT = {
+#     'p': IMG_LOAD('black_pawn.png'),    'P': IMG_LOAD('white_pawn.png'),
+#     'r': IMG_LOAD('black_castle.png'),  'R': IMG_LOAD('white_castle.png'),
+#     'n': IMG_LOAD('black_knight.png'),  'N': IMG_LOAD('white_knight.png'),
+#     'b': IMG_LOAD('black_bishop.png'),  'B': IMG_LOAD('white_bishop.png'),
+#     'k': IMG_LOAD('black_king.png'),    'K': IMG_LOAD('white_king.png'),
+#     'q': IMG_LOAD('black_queen.png'),   'Q': IMG_LOAD('white_queen.png')}
 
 
 class Board(chess.Board):
@@ -37,7 +37,7 @@ class Board(chess.Board):
         """
         super(Board, self).__init__()
         self.__half_move_clock = 0
-        self.screen = pygame.display.set_mode(DISPLAY_SIZE) if with_gui else None
+        self.screen = None #pygame.display.set_mode(DISPLAY_SIZE) if with_gui else None
         pass
 
     @property
@@ -57,7 +57,7 @@ class Board(chess.Board):
         for x, y in [(x, y) for x in range(SQUARE_COUNT) for y in range(SQUARE_COUNT)]:
             self._paint_square(x, y)
             self._paint_piece(x, y)
-        pygame.display.flip()
+        #pygame.display.flip()
         pass
 
     def get_winner(self):
@@ -92,10 +92,10 @@ class Board(chess.Board):
         Paints the chess pattern
         :return:
         """
-        r = Rect(SQUARE_SIZE * (x + (y % 2)), SQUARE_SIZE * y, SQUARE_SIZE, SQUARE_SIZE)
-        if x % 2 == 0:
-            pygame.draw.rect(self.screen, WHITE, r)
-        pass
+        #r = Rect(SQUARE_SIZE * (x + (y % 2)), SQUARE_SIZE * y, SQUARE_SIZE, SQUARE_SIZE)
+        #if x % 2 == 0:
+        #    pygame.draw.rect(self.screen, WHITE, r)
+        #pass
 
     def _paint_piece(self, x, y):
         """
@@ -106,9 +106,9 @@ class Board(chess.Board):
 
         piece = self.piece_at((SQUARE_COUNT - 1 - y) * SQUARE_COUNT + x)
 
-        r = Rect(f(x), f(y), SPRITE_SIZE, SPRITE_SIZE)
-        if piece:
-            self.screen.blit(SPRITE_DICT[str(piece)], r)
+        #r = Rect(f(x), f(y), SPRITE_SIZE, SPRITE_SIZE)
+        #if piece:
+        #    self.screen.blit(SPRITE_DICT[str(piece)], r)
         pass
 
     def get_pieces(self, color):
