@@ -2,3 +2,5 @@ nose2
 coverage
 mock
 nose2-cov==1.0a4
+pygame
+chess
