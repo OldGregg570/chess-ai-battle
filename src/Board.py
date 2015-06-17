@@ -1,4 +1,4 @@
-import pygame
+#import pygame
 import chess
 from pygame import Rect
 import logging
